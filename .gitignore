@@ -35,5 +35,8 @@ node_modules
 # intelliJ Files
 .idea
 
-#database
+# database files
 data
+
+# production settings
+settings.json

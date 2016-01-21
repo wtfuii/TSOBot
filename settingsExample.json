@@ -1,3 +1,4 @@
+// rename this file to settings.js and fill it with your personal data.
 {
   "botApiKey": "12314523:asdsdgsjdfgnosg",
   "mongooseConnection": "mongodb://localhost/TSOBot",
