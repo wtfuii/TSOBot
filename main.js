@@ -112,7 +112,7 @@ function TeamSpeakListener() {
   handleClientEnterView();
 
   function serverNotifyRegister() {
-    cl.send("use", {port: 9987}, () => {
+    cl.send("use", {port: port || 9987}, () => {
       cl.send("servernotifyregister", {event: "server"}, () => {
       });
     });
@@ -134,5 +134,9 @@ function TeamSpeakListener() {
   }
 }
 
-
-new TeamSpeakListener();
+try {
+  new TeamSpeakListener();
+} catch (ex) {
+  console.log("Restart on error.")
+  new TeamSpeakListener();
+}
