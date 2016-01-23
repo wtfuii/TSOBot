@@ -29,6 +29,7 @@ Navigate to the folder of the newly installed TSOBot module. Create a new ```set
 ## Usage
 
 These commmands are supported:
+
   * **/start** - Initial command to start conversation with the bot.
   * **/stop or /stahp** - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.
   * **/subscribeall** - Get notified if any user connects to the TS3 server.
