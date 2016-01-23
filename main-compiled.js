@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TeamSpeakListener = TeamSpeakListener;
 function TeamSpeakListener() {
   'use strict';
 
@@ -36,7 +40,18 @@ function TeamSpeakListener() {
           bot.sendMessage(msg.from.id, 'Welcome to the TSOBot');
         }
         if (err) {
-          bot.sendMessage(msg.from.id, 'Failed to Register your Telegram Account.');
+          bot.sendMessage(msg.from.id, 'Failed to register your Telegram account.');
+        }
+      });
+    });
+
+    bot.onText(/\/stop|\/stahp/, function (msg) {
+      Users.remove({ tgUserId: msg.from.id }, function (err) {
+        if (!err) {
+          bot.sendMessage(msg.from.id, 'You\'ll never hear anything from me again.');
+        }
+        if (err) {
+          bot.sendMessage(msg.from.id, 'Failed to persist in database');
         }
       });
     });

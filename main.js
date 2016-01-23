@@ -1,4 +1,4 @@
-function TeamSpeakListener() {
+export function TeamSpeakListener() {
   'use strict';
   const TeamSpeakClient = require("node-teamspeak");
   const TelegramBot = require('node-telegram-bot-api');
@@ -35,7 +35,18 @@ function TeamSpeakListener() {
           bot.sendMessage(msg.from.id, 'Welcome to the TSOBot');
         }
         if (err) {
-          bot.sendMessage(msg.from.id, 'Failed to Register your Telegram Account.');
+          bot.sendMessage(msg.from.id, 'Failed to register your Telegram account.');
+        }
+      });
+    });
+
+    bot.onText(/\/stop|\/stahp/, (msg) => {
+      Users.remove({tgUserId: msg.from.id}, err => {
+        if (!err) {
+          bot.sendMessage(msg.from.id, 'You\'ll never hear anything from me again.');
+        }
+        if (err) {
+          bot.sendMessage(msg.from.id, 'Failed to persist in database');
         }
       });
     });
@@ -137,6 +148,6 @@ function TeamSpeakListener() {
 try {
   new TeamSpeakListener();
 } catch (ex) {
-  console.log("Restart on error.")
+  console.log("Restart on error.");
   new TeamSpeakListener();
 }
