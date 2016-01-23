@@ -29,13 +29,13 @@ Navigate to the folder of the newly installed TSOBot module. Create a new ```set
 ## Usage
 
 These commmands are supported:
-* **/start** - Initial command to start conversation with the bot.
-* **/stop or /stahp** - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.
-* **/subscribeall** - Get notified if any user connects to the TS3 server.
-* **/unsubscribeall** - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.
-* **/subscribe** *username* - Get notified if the specified *username* joins the server.
-* **/unsubscribe** *username* - Don't get notified if the specified *username* joins the server.
-* **/subscriptions** Show all active subscriptions.
+ * **/start** - Initial command to start conversation with the bot.
+ * **/stop or /stahp** - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.
+ * **/subscribeall** - Get notified if any user connects to the TS3 server.
+ * **/unsubscribeall** - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.
+ * **/subscribe** *username* - Get notified if the specified *username* joins the server.
+ * **/unsubscribe** *username* - Don't get notified if the specified *username* joins the server.
+ * **/subscriptions** Show all active subscriptions.
 
 ## Development
 TSOBot was developed on node.js with ES2015.
