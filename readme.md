@@ -20,7 +20,7 @@ This is a notification bot for TeamSpeak 3 servers. It sends a notification via 
   * **mongooseConnection**: Connection string for your MongoDB database.
   * **server**: IP or hostname of your TS3 server.
   * **port**: TS3 server port. If empty, default port will be used (9987).
-  * **queryPort**: TS3 ServerQuery port. If empty, default port will be used
+  * **queryPort**: TS3 ServerQuery port. If empty, default port will be used (10011).
 
 6. Run ```npm start``` in context of your node_modules/tsobot folder to start the bot.
 
