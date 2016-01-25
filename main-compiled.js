@@ -58,6 +58,10 @@ function TeamSpeakListener() {
       });
     });
 
+    bot.onText(/\/help/, function (msg) {
+      bot.sendMessage(msg.from.id, helpText);
+    });
+
     bot.onText(/\/subscribeall/, function (msg) {
       Users.findOneAndUpdate({ tgUserId: msg.from.id }, { notifyAll: true }, function (err, result) {
         if (result) {

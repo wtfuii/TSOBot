@@ -63,7 +63,7 @@ export function TeamSpeakListener() {
 
     bot.onText(/\/help/, (msg) => {
       bot.sendMessage(msg.from.id, helpText);
-    }
+    });
 
     bot.onText(/\/subscribeall/, (msg) => {
       Users.findOneAndUpdate({tgUserId: msg.from.id}, {notifyAll: true}, (err, result) => {

@@ -10,7 +10,7 @@ This is a notification bot for TeamSpeak 3 servers. It sends a notification via 
 
 4. Go ahead and install TSOBot via npm:
 
-    ```sh
+    ```
     npm install tsobot
     ```
 
