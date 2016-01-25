@@ -6,6 +6,16 @@ export function TeamSpeakListener() {
   const fs = require('fs');
 
   const parsedJson = JSON.parse(fs.readFileSync('settings.json', 'utf8'));
+  const helpText = "The following commands are supported: \n\n" +
+    "/help - Show this help.\n\n" +
+    "/start - Initial command to start conversation with the bot.\n\n" +
+    "/stop or /stahp - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.\n\n" +
+    "/subscribeall - Get notified if any user connects to the TS3 server.\n\n" +
+    "/unsubscribeall - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.\n\n" +
+    "/subscribe [username] - Get notified if the specified *username* joins the server.\n\n" +
+    "/unsubscribe [username] - Don't get notified if the specified *username* joins the server.\n\n" +
+    "/subscriptions - Show all active subscriptions.";
+
   const server = parsedJson.server;
   const port = parsedJson.port;
   const queryPort = parsedJson.queryPort;
@@ -32,7 +42,7 @@ export function TeamSpeakListener() {
       Users.findOneAndUpdate({tgUserId: msg.from.id}, {tgUserId: msg.from.id}, {upsert: true}, (err, result) => {
         if (result) {
           console.log(result);
-          bot.sendMessage(msg.from.id, 'Welcome to the TSOBot');
+          bot.sendMessage(msg.from.id, helpText);
         }
         if (err) {
           bot.sendMessage(msg.from.id, 'Failed to register your Telegram account.');
@@ -50,6 +60,10 @@ export function TeamSpeakListener() {
         }
       });
     });
+
+    bot.onText(/\/help/, (msg) => {
+      bot.sendMessage(msg.from.id, helpText);
+    }
 
     bot.onText(/\/subscribeall/, (msg) => {
       Users.findOneAndUpdate({tgUserId: msg.from.id}, {notifyAll: true}, (err, result) => {
@@ -84,6 +98,10 @@ export function TeamSpeakListener() {
       });
     });
 
+    bot.onText(/\/subscribe$/, (msg) => {
+      bot.sendMessage(msg.from.id, 'Please enter a username for /subscribe.');
+    });
+
     bot.onText(/\/unsubscribe (.+)/, (msg, match) => {
       Users.findOneAndUpdate({tgUserId: msg.from.id}, {$pull: {tsUserNames: match[1]}}, (err, result) => {
         if(result) {
@@ -94,6 +112,10 @@ export function TeamSpeakListener() {
         }
       });
     });
+  });
+
+  bot.onText(/\/unsubscribe$/, (msg) => {
+    bot.sendMessage(msg.from.id, 'Please enter a username for /unsubscribe..');
   });
 
   bot.onText(/\/subscriptions/, (msg) => {

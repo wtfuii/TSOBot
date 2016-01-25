@@ -13,6 +13,8 @@ function TeamSpeakListener() {
   var fs = require('fs');
 
   var parsedJson = JSON.parse(fs.readFileSync('settings.json', 'utf8'));
+  var helpText = "The following commands are supported: \n\n" + "/help - Show this help.\n\n" + "/start - Initial command to start conversation with the bot.\n\n" + "/stop or /stahp - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.\n\n" + "/subscribeall - Get notified if any user connects to the TS3 server.\n\n" + "/unsubscribeall - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.\n\n" + "/subscribe [username] - Get notified if the specified *username* joins the server.\n\n" + "/unsubscribe [username] - Don't get notified if the specified *username* joins the server.\n\n" + "/subscriptions - Show all active subscriptions.";
+
   var server = parsedJson.server;
   var port = parsedJson.port;
   var queryPort = parsedJson.queryPort;
@@ -37,7 +39,7 @@ function TeamSpeakListener() {
       Users.findOneAndUpdate({ tgUserId: msg.from.id }, { tgUserId: msg.from.id }, { upsert: true }, function (err, result) {
         if (result) {
           console.log(result);
-          bot.sendMessage(msg.from.id, 'Welcome to the TSOBot');
+          bot.sendMessage(msg.from.id, helpText);
         }
         if (err) {
           bot.sendMessage(msg.from.id, 'Failed to register your Telegram account.');
@@ -89,6 +91,10 @@ function TeamSpeakListener() {
       });
     });
 
+    bot.onText(/\/subscribe$/, function (msg) {
+      bot.sendMessage(msg.from.id, 'Please enter a username for /subscribe.');
+    });
+
     bot.onText(/\/unsubscribe (.+)/, function (msg, match) {
       Users.findOneAndUpdate({ tgUserId: msg.from.id }, { $pull: { tsUserNames: match[1] } }, function (err, result) {
         if (result) {
@@ -99,6 +105,10 @@ function TeamSpeakListener() {
         }
       });
     });
+  });
+
+  bot.onText(/\/unsubscribe$/, function (msg) {
+    bot.sendMessage(msg.from.id, 'Please enter a username for /unsubscribe..');
   });
 
   bot.onText(/\/subscriptions/, function (msg) {

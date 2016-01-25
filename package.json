@@ -2,7 +2,7 @@
   "name": "tsobot",
   "version": "1.0.0",
   "description": "TeamSpeak 3 Bot",
-  "main": "main.js",
+  "main": "main-compiled.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
