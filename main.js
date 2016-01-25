@@ -12,8 +12,8 @@ export function TeamSpeakListener() {
     "/stop or /stahp - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.\n\n" +
     "/subscribeall - Get notified if any user connects to the TS3 server.\n\n" +
     "/unsubscribeall - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.\n\n" +
-    "/subscribe [username] - Get notified if the specified *username* joins the server.\n\n" +
-    "/unsubscribe [username] - Don't get notified if the specified *username* joins the server.\n\n" +
+    "/subscribe [username] - Get notified if the specified [username] joins the server.\n\n" +
+    "/unsubscribe [username] - Don't get notified if the specified [username} joins the server.\n\n" +
     "/subscriptions - Show all active subscriptions.";
 
   const server = parsedJson.server;

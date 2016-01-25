@@ -13,7 +13,7 @@ function TeamSpeakListener() {
   var fs = require('fs');
 
   var parsedJson = JSON.parse(fs.readFileSync('settings.json', 'utf8'));
-  var helpText = "The following commands are supported: \n\n" + "/help - Show this help.\n\n" + "/start - Initial command to start conversation with the bot.\n\n" + "/stop or /stahp - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.\n\n" + "/subscribeall - Get notified if any user connects to the TS3 server.\n\n" + "/unsubscribeall - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.\n\n" + "/subscribe [username] - Get notified if the specified *username* joins the server.\n\n" + "/unsubscribe [username] - Don't get notified if the specified *username* joins the server.\n\n" + "/subscriptions - Show all active subscriptions.";
+  var helpText = "The following commands are supported: \n\n" + "/help - Show this help.\n\n" + "/start - Initial command to start conversation with the bot.\n\n" + "/stop or /stahp - Omit this command and you'll never hear anything again from the bot. All your subscriptions will be deleted.\n\n" + "/subscribeall - Get notified if any user connects to the TS3 server.\n\n" + "/unsubscribeall - Don't get notified for every user that joins the server. If you subscribed to specific users, you'll keep getting notifications for them.\n\n" + "/subscribe [username] - Get notified if the specified [username] joins the server.\n\n" + "/unsubscribe [username] - Don't get notified if the specified [username} joins the server.\n\n" + "/subscriptions - Show all active subscriptions.";
 
   var server = parsedJson.server;
   var port = parsedJson.port;
