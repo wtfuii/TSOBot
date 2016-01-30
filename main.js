@@ -21,12 +21,16 @@ export function TeamSpeakListener() {
   const queryPort = parsedJson.queryPort;
 
   let cl = new TeamSpeakClient(server, queryPort);
+  setErrorHandler();
 
-  cl.on("error", (err) => {
-    cl = new TeamSpeakClient(server, queryPort);
-    serverNotifyRegister();
-    handleClientEnterView();
-  });
+  function setErrorHandler() {
+    cl.on("error", (err) => {
+      cl = new TeamSpeakClient(server, queryPort);
+      setErrorHandler();
+      serverNotifyRegister();
+      handleClientEnterView();
+    });
+  }
 
   const bot = new TelegramBot(parsedJson.botApiKey, {polling: true});
 
