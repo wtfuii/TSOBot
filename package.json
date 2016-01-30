@@ -1,6 +1,6 @@
 {
   "name": "tsobot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "TeamSpeak 3 Bot",
   "repository" :
   { "type" : "git"

@@ -21,17 +21,23 @@ export function TeamSpeakListener() {
   const queryPort = parsedJson.queryPort;
 
   let cl = new TeamSpeakClient(server, queryPort);
-  setErrorHandler();
+  setHandlers()
 
-  function setErrorHandler() {
+  function setHandlers() {
     cl.on("error", (err) => {
       cl = new TeamSpeakClient(server, queryPort);
-      setErrorHandler();
+      setHandlers();
+      serverNotifyRegister();
+      handleClientEnterView();
+    });
+
+    cl.on("close", () => {
+      cl = new TeamSpeakClient(server, queryPort);
+      setHandlers();
       serverNotifyRegister();
       handleClientEnterView();
     });
   }
-
   const bot = new TelegramBot(parsedJson.botApiKey, {polling: true});
 
   const usersSchema = new mongoose.Schema(

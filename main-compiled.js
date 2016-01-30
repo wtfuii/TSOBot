@@ -20,17 +20,23 @@ function TeamSpeakListener() {
   var queryPort = parsedJson.queryPort;
 
   var cl = new TeamSpeakClient(server, queryPort);
-  setErrorHandler();
+  setHandlers();
 
-  function setErrorHandler() {
+  function setHandlers() {
     cl.on("error", function (err) {
       cl = new TeamSpeakClient(server, queryPort);
-      setErrorHandler();
+      setHandlers();
+      serverNotifyRegister();
+      handleClientEnterView();
+    });
+
+    cl.on("close", function () {
+      cl = new TeamSpeakClient(server, queryPort);
+      setHandlers();
       serverNotifyRegister();
       handleClientEnterView();
     });
   }
-
   var bot = new TelegramBot(parsedJson.botApiKey, { polling: true });
 
   var usersSchema = new mongoose.Schema({
