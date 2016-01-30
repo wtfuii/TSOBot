@@ -20,7 +20,13 @@ export function TeamSpeakListener() {
   const port = parsedJson.port;
   const queryPort = parsedJson.queryPort;
 
-  const cl = new TeamSpeakClient(server, queryPort);
+  let cl = new TeamSpeakClient(server, queryPort);
+
+  cl.on("error", (err) => {
+    cl = new TeamSpeakClient(server, queryPort);
+    serverNotifyRegister();
+    handleClientEnterView();
+  });
 
   const bot = new TelegramBot(parsedJson.botApiKey, {polling: true});
 
@@ -41,7 +47,6 @@ export function TeamSpeakListener() {
     bot.onText(/\/start/, (msg) => {
       Users.findOneAndUpdate({tgUserId: msg.from.id}, {tgUserId: msg.from.id}, {upsert: true}, (err, result) => {
         if (result) {
-          console.log(result);
           bot.sendMessage(msg.from.id, helpText);
         }
         if (err) {
@@ -167,9 +172,4 @@ export function TeamSpeakListener() {
   }
 }
 
-try {
-  new TeamSpeakListener();
-} catch (ex) {
-  console.log("Restart on error.");
-  new TeamSpeakListener();
-}
+const listener = new TeamSpeakListener();

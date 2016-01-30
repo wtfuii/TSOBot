@@ -21,6 +21,12 @@ function TeamSpeakListener() {
 
   var cl = new TeamSpeakClient(server, queryPort);
 
+  cl.on("error", function (err) {
+    cl = new TeamSpeakClient(server, queryPort);
+    serverNotifyRegister();
+    handleClientEnterView();
+  });
+
   var bot = new TelegramBot(parsedJson.botApiKey, { polling: true });
 
   var usersSchema = new mongoose.Schema({
@@ -38,7 +44,6 @@ function TeamSpeakListener() {
     bot.onText(/\/start/, function (msg) {
       Users.findOneAndUpdate({ tgUserId: msg.from.id }, { tgUserId: msg.from.id }, { upsert: true }, function (err, result) {
         if (result) {
-          console.log(result);
           bot.sendMessage(msg.from.id, helpText);
         }
         if (err) {
@@ -163,11 +168,6 @@ function TeamSpeakListener() {
   }
 }
 
-try {
-  new TeamSpeakListener();
-} catch (ex) {
-  console.log("Restart on error.");
-  new TeamSpeakListener();
-}
+var listener = new TeamSpeakListener();
 
 //# sourceMappingURL=main-compiled.js.map
